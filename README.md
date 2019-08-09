@@ -15,7 +15,7 @@ Clone the github repository by entering the following commands into your IDE ter
 
 Change to the cloned food_view_2 directory:
 ```cd food_view_2```
-`
+
 Install all required gems:
 ```bundle```
 
