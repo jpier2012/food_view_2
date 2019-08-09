@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FoodView</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'restaurant' if controller_name == "restaurants" %>
+    <%= javascript_include_tag 'dishes' if controller_name == "dishes" %>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <%= render "nav" %>
+      <p id="error"><%= flash[:notice] if flash[:notice] %></p>
+      <p id="error"><%= flash[:alert] if flash[:alert] %></p>
+      <%= render partial: "application/errors", locals: { object: current_user } if user_signed_in? %>
+
+      <%= yield %>
+    <div>
+  </body>
+  <footer>
+  <% if user_signed_in? %>
+    <h4><%= "Current User: #{current_user.email}" %></h4>
+  <% else %>
+    <h2>Log in to View Food</h2>
+  <% end %>
+    
+  </footer>
+</html>

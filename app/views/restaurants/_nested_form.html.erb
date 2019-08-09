@@ -1,0 +1,44 @@
+<h3>Where did you eat?</h3>
+<%= d.collection_select(:restaurant_id, Restaurant.all, :id, :name, {prompt: "Please Select a Restaurant"}) %><br>
+
+<h4>Or, create a new one: </h4>
+<%= d.fields_for :restaurant, restaurant do |r| %>
+  <table>
+    <tr>
+      <td><%= r.label :name %></td>
+      <td><%= r.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= r.label :address %></td>
+      <td><%= r.text_field :address %></td>
+    </tr>
+    <tr>
+      <td><%= r.label :dress_code %></td>
+      <td><%= r.text_field :dress_code %></td>
+    </tr>
+    <tr>
+      <td><%= r.label :outdoor_seating, "Outdoor Seating" %></td>
+      <td><%= r.check_box :outdoor_seating, {}, "true", "false" %></td>
+    </tr>
+    <tr>
+      <td><%= r.label :child_friendly, "Child Friendly" %></td>
+      <td><%= r.check_box :child_friendly, {}, "true", "false" %></td>
+    </tr>
+    <tr>
+      <td><%= r.label :byob, "BYOB" %></td>
+      <td><%= r.check_box :byob, {}, "true", "false" %></td>
+    </tr>
+    <tr>
+      <td><%= r.label :open_bar, "Open Bar" %></td>
+      <td><%= r.check_box :open_bar, {}, "true", "false" %></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="<%= ' field_with_errors' if @restaurant.errors[:cuisine].any? %>">
+          <%= r.label :cuisine, "Cuisine: "%>
+        </div>
+      </td>
+      <td><%= r.collection_select(:cuisine, Restaurant.cuisines, :to_s, :to_s, {prompt: "Choose"}) %></td>
+    </tr>
+  </table>
+<% end %>

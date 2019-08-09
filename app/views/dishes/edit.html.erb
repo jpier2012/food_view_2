@@ -1,0 +1,5 @@
+<h1>Dish Edit</h1>
+
+<%= render "form" %>
+
+<br><%= link_to "Delete This Dish", dish_path(@dish), html_options = { method: :delete, type: "submit" } %>

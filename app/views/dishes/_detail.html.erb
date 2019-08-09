@@ -1,0 +1,32 @@
+<% if dish.photo.attached? %>
+  <%= image_tag url_for(dish.photo), class: "index-view" %>
+<% end %>
+<p>
+    <em><%= dish.description %></em>
+</p>
+<table>
+    <tr>
+        <td>Price: </td>
+        <td>$<%= "%.2f" % dish.price %></td>
+    </tr>
+    <tr>
+        <td>Taste: </td>
+        <td><%= dish.taste %> / 5</td>
+    </tr>
+    <tr>
+        <td>Dining: </td>
+        <td><%= dish.dining_experience %> / 5</td>
+    </tr>
+    <tr>
+        <td>Overall:</td>
+        <td><%= dish.overall_value %> / 5</td>
+    </tr>
+    <tr>
+        <td>Restaurant: </td>
+        <td><%= dish.restaurant_name %></td>
+    </tr>
+    <tr>
+        <td>Eaten: </td>
+        <td><%= dish.created_at.strftime("%b %e, %Y") %></td>
+    </tr>
+</table>

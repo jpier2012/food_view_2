@@ -1,0 +1,48 @@
+<%= form_for @restaurant do |f| %>
+    <%= render partial: "application/errors", locals: { object: @restaurant } %>
+
+    <table>
+        <tr>
+            <td>
+                <div class="<%= ' field_with_errors' if @restaurant.errors[:name].any? %>">
+                    <%= f.label :name %>
+                </div>
+            </td>
+            <td><%= f.text_field :name %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :address %></td>
+            <td><%= f.text_field :address %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :dress_code, "Dress Code" %></td>
+            <td><%= f.text_field :dress_code %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :outdoor_seating, "Outdoor Seating" %></td>
+            <td><%= f.check_box :outdoor_seating %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :child_friendly, "Child Friendly" %></td>
+            <td><%= f.check_box :child_friendly %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :byob, "BYOB" %></td>
+            <td><%= f.check_box :byob %></td>
+        </tr>
+        <tr>
+            <td><%= f.label :open_bar, "Open Bar" %></td>
+            <td><%= f.check_box :open_bar %></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="<%= ' field_with_errors' if @restaurant.errors[:cuisine].any? %>">
+                    <%= f.label :cuisine, "Cuisine: "%>
+                </div>
+            </td>
+            <td><%= f.collection_select(:cuisine, Restaurant.cuisines, :to_s, :to_s, {prompt: "Choose"}) %></td>
+        </tr>
+    </table>
+    <br>
+    <%= f.submit %><br>
+<% end %>

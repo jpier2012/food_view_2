@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  address: MyString
+  cuisine: MyString
+  dress_code: MyString
+  outdoor_seating?: false
+  child_friendly?: false
+  open_bar?: false
+  byob?: false
+
+two:
+  name: MyString
+  address: MyString
+  cuisine: MyString
+  dress_code: MyString
+  outdoor_seating?: false
+  child_friendly?: false
+  open_bar?: false
+  byob?: false

@@ -1,0 +1,10 @@
+<h1><%= @dish.name %></h1>
+<%= render partial: "detail", locals: { dish: @dish } %>
+<br>
+<% if user_created_dish %>
+    <%= link_to "Edit This Dish", edit_dish_path(@dish), html_options = { id: "button"} %>
+<% end %>
+<br>
+<br>
+
+<%= link_to "View This Restaurant", restaurant_path(@dish.restaurant), html_options = { id: "button"} %>

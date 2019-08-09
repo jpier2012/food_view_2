@@ -1,0 +1,174 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+  html, body {
+    margin: 0 2.5% 2.5% 5%;
+    line-height: 18px;
+    background-color: ivory;
+  }
+
+  input {
+    background-color: wheat;
+  }
+
+  a {
+    font-size: 24px;
+    text-decoration: none;
+    padding: 6px 6px;
+    font-style: italic;
+    background-color: wheat;
+    color: black;
+  }
+
+  select, [type='submit'], #button {
+    background-color: wheat;
+    border: none;
+    color: black;
+    padding: 6px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: serif;
+    font-style: italic;
+    font-size: 16px;
+  }
+
+  #index-link {
+    font-size: 20px; 
+    padding: 0;
+  }
+
+  a:hover, [type='submit']:hover, select:hover, #button:hover {
+    background-color: lightblue;
+    color: black;
+  }
+
+  a:visited {
+    text-decoration: none;
+  }
+
+  [type='file'] {
+    background-color: wheat;
+    border: none;
+    color: black;
+    padding: 6px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: serif;
+    font-style: italic;
+    font-size: 12px;
+}
+
+  .field_with_errors {
+      color: red;
+  }
+
+  #error_explanation {
+    padding: 5px;
+    background-color: #f44336;
+    color: white;
+  }
+   
+ /* Add a black background color to the top navigation */
+  .topnav {
+    width: 100%;
+    background-color: wheat;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 15px;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  .wrapper {
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,.3);
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    margin: 16px auto;
+    max-width: 100%;
+    padding: 2.25% 5% 2.25% 5%; /* 18px / 800px */
+  }
+  
+  h1 {
+    font-size: 36px;
+    line-height: 54px;
+    font-style: italic;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: 36px;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  h3 {
+    font-size: 18px;
+    line-height: 36px;
+  }
+
+  h1, h2, h3, h4 {
+    color: black;
+    text-align: center;
+  }
+
+  .main {
+    overflow: hidden;
+  }
+
+  table {
+    min-width: 35%;
+    max-width: 50%;
+  }
+
+  td:first-child {
+    min-width: 80px;
+  }
+
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .closebtn:hover {
+    color: black;
+  }
+
+  img {
+    max-width: 75%;
+    height: auto;
+  }
+
+  #view_food {
+    font-size: 72px;
+    background-color: none;
+  }

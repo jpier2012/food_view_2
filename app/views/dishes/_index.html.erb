@@ -1,0 +1,12 @@
+<h3>Dish count: <%= @dishes.count %></h3>
+
+<% @dishes.each do |d| %>
+        <br>
+        <%= link_to "#{d.name}", restaurant_dish_path(d.restaurant_id, d) %>
+        <br>
+        <br>
+        <br>
+        <%= render partial: "detail", locals: { dish: d }%>
+        <hr>
+        <br>
+<% end %>

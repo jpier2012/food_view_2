@@ -1,0 +1,27 @@
+<h1>User Detail Page</h1>
+
+<h2><%= @user.email %></h2
+
+<h3>Dishes Created</h3>
+
+<ul>
+  <% @user.dishes.each do |dish| %>
+    <li><%= dish.name %><br></li>
+    <ul>
+      <li><%= dish.restaurant_name %><br></li>
+    </ul>
+    <br>
+  <% end %>
+</ul>
+
+<h3>Associated Restaurants</h3>
+
+<ul>
+  <% @user.restaurants.uniq.each do |r| %>
+    <li><%= r.name %><br></li>
+    <ul>
+      <li><%= r.cuisine %><br></li>
+    </ul>
+    <br>
+  <% end %>
+</ul>

@@ -1,0 +1,19 @@
+<h3>Click restaurant name to view</h3>
+
+<% if session[:filters] %>
+    <% session[:filters].each do |filter, value| %>
+        <h3><em><%= "#{filter.humanize}: #{value}" %></em></h3>
+    <% end %>
+<% end %>
+
+<h4 style="text-align:left;">Count: <%= @restaurants.count %></h4>
+<br>
+
+<% @restaurants.each do |r| %>
+    <p>
+        <p><%= link_to "#{r.name}", restaurant_path(r) %></p>
+        <%= render partial: "detail", locals: { restaurant: r } %>
+    </p>    
+<hr>
+<br>
+<% end %>

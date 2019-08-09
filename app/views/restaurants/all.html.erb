@@ -1,0 +1,8 @@
+<h1>All Restaurants</h1>
+
+<%= render "index" %>
+
+<%= link_to "Filter Your View", show_filters_path, html_options = { id: "button"} %>
+<br>
+<br>
+<%= link_to "Clear Filters", clear_filters_path, html_options = { id: "button",  method: :delete }  %>

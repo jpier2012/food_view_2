@@ -1,0 +1,68 @@
+<%= form_for @dish do |d| %>
+  <%= render partial: "application/errors", locals: { object: @dish } %>
+
+  <table>
+    <tr>
+      <td><%= d.label :photo, "Upload a Photo" %></td>
+      <td><%= d.file_field :photo %></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="<%= ' field_with_errors' if @dish.errors[:name].any? %>">
+          <%= d.label :name %>
+        </div>
+      </td>
+      <td><%= d.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= d.label :description %></td>
+      <td><%= d.text_field :description %></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="<%= ' field_with_errors' if @dish.errors[:price].any? %>">
+          <%= d.label :price %>
+        </div>
+      </td>
+      <td><%= d.number_field :price, step: 0.01 %></td>
+    </tr>
+  </table>
+
+  <h3>Rate it! (1-5 scale, 5 being best):</h3>
+
+  <table>
+    <tr>
+      <td>
+        <div class="<%= ' field_with_errors' if @dish.errors[:taste].any? %>">
+          <%= d.label :taste %>
+        </div>
+      </td>
+      <td><%= d.text_field :taste %></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="<%= ' field_with_errors' if @dish.errors[:dining_experience].any? %>">
+          <%= d.label :dining_experience %>
+        </div>
+      </td>
+      <td><%= d.number_field :dining_experience %></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="<%= ' field_with_errors' if @dish.errors[:overall_value].any? %>">
+          <%= d.label :overall_value %>
+        </div>
+      </td>
+      <td><%= d.number_field :overall_value %></td>
+    </tr>
+  </table>
+
+  <% if @dish.restaurant_id.nil? %>
+    <%= render partial: "restaurants/nested_form", locals: { d: d, restaurant: @restaurant } %>
+  <% else %>
+    <%= d.hidden_field :restaurant_id, value: @dish.restaurant_id %>
+  <% end %>
+  <br>
+  <%= d.submit %>
+  <br>
+<% end %>

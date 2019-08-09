@@ -1,0 +1,5 @@
+<h1>Create a New Dish</h1>
+
+<h2><%= "For #{@restaurant.name}" if @restaurant.persisted? %></h2>
+
+<%= render "form" %>

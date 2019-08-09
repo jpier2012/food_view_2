@@ -1,0 +1,6 @@
+<h1>Welcome to FoodView!</h1>
+
+<% if user_signed_in? %>
+  <h2>Who's Who?</h2>
+  <%= render partial: "users/index", locals: { users: User.all } %>
+<% end %>

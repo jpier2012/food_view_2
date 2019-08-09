@@ -1,0 +1,10 @@
+<ul>
+  <% users.each do |user| %>
+    <li><%= link_to "#{user.email}", user_path(user), html_options = { id: "index-link"} %></li>
+    <ul>
+      <li>Dishes: <%= user.dishes.count %></li>
+      <li>Restaurants: <%= user.restaurants.uniq.count %></li>
+    </ul>
+    <br>
+  <% end %>
+</ul>
