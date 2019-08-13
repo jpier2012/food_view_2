@@ -12,7 +12,7 @@ $(function() {
     .then(restaurants => {
       index.innerHTML += "<ul>"
         restaurants.map(restaurant => {
-          newR = new Restaurant(restaurant)
+          let newR = new Restaurant(restaurant)
           index.innerHTML += "<li>"
           index.innerHTML += newR.renderRestaurant();
           index.innerHTML += "</li>";
