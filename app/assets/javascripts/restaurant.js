@@ -10,14 +10,12 @@ $(function() {
     fetch(BASE_URL + "/restaurants/all.json")
     .then(response => response.json())
     .then(restaurants => {
-      index.innerHTML += "<ul>"
+      index.innerHTML += "<ul>";
         restaurants.map(restaurant => {
-          let newR = new Restaurant(restaurant)
-          index.innerHTML += "<li>"
-          index.innerHTML += newR.renderRestaurant();
-          index.innerHTML += "</li>";
+          let newR = new Restaurant(restaurant);
+          index.innerHTML += `<li>${newR.renderRestaurant()}</li>`;
       });
-      index.innerHTML += "</ul>"
+      index.innerHTML += "</ul>";
     });
   });
 
