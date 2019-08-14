@@ -8,6 +8,10 @@ class RestaurantsController < ApplicationController
     
     def index
         @restaurants = current_user.restaurants.uniq
+        respond_to do |format|
+            format.html { render :index }
+            format.json { render json: @restaurants }
+        end
     end
 
     # if there are attributes present in the restaurant_filters session hash, 
@@ -20,6 +24,10 @@ class RestaurantsController < ApplicationController
                 @restaurants = @restaurants.send(filter) if value.in? ["true", "false"]
                 @restaurants = @restaurants.cuisine(value) if attr == "cuisine"
             end
+        end
+        respond_to do |format|
+            format.html { render :all }
+            format.json { render json: @restaurants }
         end
     end
 

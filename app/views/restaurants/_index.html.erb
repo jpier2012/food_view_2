@@ -9,7 +9,11 @@
 <h4 style="text-align:left;">Count: <%= @restaurants.count %></h4>
 <br>
 
-<%= link_to "Show Restaurants", "#", class: "js-get-restaurants", id: "button" %>
-
-<div class="js-show-restaurants">
-</div>
+<% @restaurants.each do |r| %>
+    <p>
+        <p><%= link_to "#{r.name}", restaurant_path(r) %></p>
+        <%= render partial: "detail", locals: { restaurant: r } %>
+    </p>    
+<hr>
+<br>
+<% end %>
