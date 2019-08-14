@@ -10,17 +10,31 @@ $(function() {
     fetch(BASE_URL + "/restaurants/all.json")
     .then(response => response.json())
     .then(restaurants => {
-      index.innerHTML += "<ul>";
+      index.innerHTML += "<p>";
         restaurants.map(restaurant => {
-          let newR = new Restaurant(restaurant);
-          index.innerHTML += `<li>${newR.renderRestaurant()}</li>`;
+          let newR = new RestaurantItem(restaurant);
+          index.innerHTML += newR.renderRestaurant();
       });
-      index.innerHTML += "</ul>";
+      index.innerHTML += "</p>";
     });
   });
 
-  class Restaurant {
+  $(".js-get-restaurant").on("click", function (event) {
+    event.preventDefault();
+    let id = $(this).data("id")
+    let show = document.querySelector(".js-show-restaurant");
+
+    fetch(BASE_URL + "/restaurants/" + id + ".json")
+      .then(response => response.json())
+      .then(restaurant => {
+        let newR = new RestaurantItem(restaurant);
+        show.innerHTML += `<p>${newR.renderRestaurant()}</p>`;
+      });
+  });
+
+  class RestaurantItem {
     constructor(restaurant) {
+      this.id = restaurant.id
       this.name = restaurant.name
       this.address = restaurant.address
       this.cuisine = restaurant.cuisine
@@ -36,8 +50,8 @@ $(function() {
       return `
       <table>
         <tr>
-            <td>Name: </td>
-            <td>${this.name}</td>
+            <td><strong>Name: </strong></td>
+            <td><strong><a href="/restaurants/${this.id}" data-id="${this.id}">${this.name}</a></strong></td>
         </tr>
         <tr>
             <td>Address: </td>
@@ -67,10 +81,22 @@ $(function() {
             <td>Open Bar: </td>
             <td>${this.open_bar}</td>
         </tr>
-      </table>      
+      </table>
+      <br>
       `
     }
-
   }
 
+  class DishItem {
+    constructor(dish) {
+      this.id = dish.id
+      this.name = dish.name
+      this.description = dish.description
+      this.taste = dish.taste
+      this.overall_value = dish.overall_value
+      this.dining_experience = dish.dining_experience
+      this.user_id = dish.user_id
+      this.restaurant_id = dish.restaurant_id
+    }
+  }
 });

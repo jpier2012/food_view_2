@@ -1,11 +1,13 @@
 class RestaurantsController < ApplicationController
     include RestaurantsHelper
-    before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+    before_action :set_restaurant, only: [:show, :edit, :update, :destroy, :js_restaurant_demo_show]
     before_action :restaurant_access_redirect, only: [:edit, :update, :destroy]
 
+    def js_restaurant_demo
+    end
+    
     def index
         @restaurants = current_user.restaurants.uniq
-        render json: @restaurants, status: 200
     end
 
     # if there are attributes present in the restaurant_filters session hash, 
@@ -18,10 +20,6 @@ class RestaurantsController < ApplicationController
                 @restaurants = @restaurants.send(filter) if value.in? ["true", "false"]
                 @restaurants = @restaurants.cuisine(value) if attr == "cuisine"
             end
-        end
-        respond_to do |format|
-            format.html { render :all }
-            format.json { render json: @restaurants, status: 200 }
         end
     end
 

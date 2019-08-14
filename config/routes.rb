@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   scope :restaurants do
     get "all", to: "restaurants#all", as: "all_restaurants"
+    get "demo", to: "restaurants#js_restaurant_demo"
   end
 
   resources :restaurants do
