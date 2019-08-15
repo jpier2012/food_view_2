@@ -4,15 +4,8 @@ class RestaurantsController < ApplicationController
     before_action :restaurant_access_redirect, only: [:edit, :update, :destroy]
 
     def index
-        @restaurants = current_user.restaurants.uniq
-        respond_to do |format|
-            format.html { render :index }
-            format.json { render json: @restaurants }
-        end
     end
 
-    # if there are attributes present in the restaurant_filters session hash, 
-    # this method will call the equivalent scope methods on the Restaurant class to chain the query criteria
     def all
         @restaurants = Restaurant.all
         render json: @restaurants

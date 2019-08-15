@@ -1,49 +1,19 @@
 $(function() { 
-    const BASE_URL = "http://localhost:3000"
+  const BASE_URL = "http://localhost:3000"
 
-    $('.js-display-create-form').on('click', function (event) {
-      displayCreateForm();
-    });
-    
-    // $('.js-restaurant-detail').on('click', function (event) {
-    //   event.preventDefault();
-    //   let id = $(this).data("id");
-    //   displayRestaurant(id);
-    // });
+  $('.js-display-create-form').on('click', function (event) {
+    displayCreateForm();
+  });
 
-    getRestaurants();
+  $('.js-restaurant-detail').on('click', function (event) {
+    event.preventDefault();
+    let id = $(this).data("id");
+    displayRestaurant(id);
+  });
 
-    function renderPreview(restaurant) {
-      return `
-            <h2>${restaurant.name}</h2>
-            <ul>
-            <li>${restaurant.address}</li>
-            <li>${restaurant.cuisine}</li>
-            </ul>
-            <input type="button" data-id="${restaurant.id}" class="js-restaurant-detail" value="See Details">
-            <div id="restaurant-${restaurant.id}">
-            </div>
-            <br>
-            <hr>
-            <br>
-            `
-    }
+  getRestaurants();
 
-  function getRestaurants() {
-    let index = document.querySelector('.js-restaurant-index');
-
-    fetch(BASE_URL + "/restaurants/all.json")
-      .then(response => response.json())
-      .then(restaurants => {
-        restaurants.map(restaurant => {
-          index.innerHTML += renderPreview(restaurant);
-        });
-        // $('.js-restaurant-detail').on('click', function () {
-        //   let id = $(this).data("id");
-        //   displayRestaurant(id);
-        // });
-      });
-  }
+  let index = document.querySelector('.js-restaurant-index');
 
   function displayCreateForm() {
     let form = document.querySelector('.js-restaurant-form');
@@ -90,7 +60,7 @@ $(function() {
     `
     form.innerHTML = html;
 
-    document.getElementById('restaurant-form').addEventListener('submit', function(event) {
+    document.getElementById('restaurant-form').addEventListener('submit', function (event) {
       event.preventDefault();
       createRestaurant();
     })
@@ -117,16 +87,27 @@ $(function() {
         'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content
       }
     }).then(response => response.json())
-    .then(restaurant => {
-      // let newR = new RestaurantItem(restaurant);
-      // document.querySelector('.js-new-restaurant-display').innerHTML = newR.renderRestaurant();
-      alert("Restaurant created!");
+      .then(restaurant => {
+        alert("Restaurant created!");
+        index.innerHTML += restaurantPreview(restaurant);
 
-      let index = document.querySelector('.js-restaurant-index');
-      index.innerHTML += restaurantPreview(restaurant);
+        document.getElementById(`restaurant-${restaurant.id}`).scrollIntoView();
+      });
+  }
 
-      document.getElementById(`restaurant-${restaurant.id}`).scrollIntoView();
-    });
+  function getRestaurants() {
+    fetch(BASE_URL + "/restaurants/all.json")
+      .then(response => response.json())
+      .then(restaurants => {
+        restaurants.map(restaurant => {
+          let newR = new RestaurantItem(restaurant);
+          index.innerHTML += newR.renderPreview();
+        });
+        // $('.js-restaurant-detail').on('click', function () {
+        //   let id = $(this).data("id");
+        //   displayRestaurant(id);
+        // });
+      });
   }
 
   // function displayRestaurant(id) {
@@ -139,38 +120,46 @@ $(function() {
   //       console.log(restaurant);
   //       console.log(display);
   //       let newR = new RestaurantItem(restaurant);
-  //       display.innerHTML = newR.renderRestaurant();
+  //       display.innerHTML = newR.renderDetails();
   //     })
   // }
 
   class RestaurantItem {
     constructor(restaurant) {
-      this.id = restaurant.id
-      this.name = restaurant.name
-      this.address = restaurant.address
-      this.cuisine = restaurant.cuisine
-      this.dress_code = restaurant.dress_code
-      this.outdoor_seating = restaurant.outdoor_seating
-      this.child_friendly = restaurant.child_friendly
-      this.open_bar = restaurant.open_bar
-      this.byob = restaurant.byob
-      this.created_by = restaurant.created_by
+      this.id = restaurant.id;
+      this.name = restaurant.name;
+      this.address = restaurant.address;
+      this.cuisine = restaurant.cuisine;
+      this.dress_code = restaurant.dress_code;
+      this.outdoor_seating = restaurant.outdoor_seating;
+      this.child_friendly = restaurant.child_friendly;
+      this.open_bar = restaurant.open_bar;
+      this.byob = restaurant.byob;
+      this.created_by = restaurant.created_by;
     }
 
-    renderRestaurant() {
+    renderPreview() {
+      return `
+            <h2>${this.name}</h2>
+            <ul>
+            <li>${this.address}</li>
+            <li>${this.cuisine}</li>
+            </ul>
+            <input type="button" data-id="${this.id}" class="js-restaurant-detail" value="See Details">
+            <div id="restaurant-${this.id}">
+            </div>
+            <br>
+            <hr>
+            <br>
+            `
+    }
+
+    renderDetails() {
       return `
       <br>
       <hr>
       <br>
       <table>
-        <tr>
-            <td>Address: </td>
-            <td>${this.address}</td>
-        </tr>
-        <tr>
-            <td>Cuisine: </td>
-            <td>${this.cuisine}</td>
-        </tr>
         <tr>
             <td>Dress Code:</td>
             <td>${this.dress_code}</td>
