@@ -7,8 +7,6 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'restaurant' if controller_name == "restaurants" %>
-    <%= javascript_include_tag 'dish' if controller_name == "dishes" %>
   </head>
 
   <body>
@@ -27,6 +25,7 @@
   <% else %>
     <h2>Log in to View Food</h2>
   <% end %>
-    
   </footer>
+  <%= javascript_include_tag 'restaurant' if controller_name == "restaurants" %>
+  <%= javascript_include_tag 'dish' if controller_name == "dishes" %>
 </html>
