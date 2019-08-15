@@ -3,9 +3,6 @@ class RestaurantsController < ApplicationController
     before_action :set_restaurant, only: [:show, :edit, :update, :destroy, :js_restaurant_demo_show]
     before_action :restaurant_access_redirect, only: [:edit, :update, :destroy]
 
-    def js_restaurant_demo
-    end
-    
     def index
         @restaurants = current_user.restaurants.uniq
         respond_to do |format|
@@ -18,17 +15,7 @@ class RestaurantsController < ApplicationController
     # this method will call the equivalent scope methods on the Restaurant class to chain the query criteria
     def all
         @restaurants = Restaurant.all
-        if session[:filters]
-            session[:filters].each do |attr, value|
-                value == "false" ? filter = "no_#{attr}" : filter = attr
-                @restaurants = @restaurants.send(filter) if value.in? ["true", "false"]
-                @restaurants = @restaurants.cuisine(value) if attr == "cuisine"
-            end
-        end
-        respond_to do |format|
-            format.html { render :all }
-            format.json { render json: @restaurants }
-        end
+        render json: @restaurants
     end
 
     def new
@@ -48,6 +35,10 @@ class RestaurantsController < ApplicationController
     end
 
     def show
+        respond_to do |format|
+            format.html { render :show }
+            format.json { render json: @restaurant }
+        end
     end
 
     def edit
