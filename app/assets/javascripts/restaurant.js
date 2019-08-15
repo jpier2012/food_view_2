@@ -5,13 +5,13 @@ $(function() {
     displayCreateForm();
   });
 
+  getRestaurants();
+
   $('.js-restaurant-detail').on('click', function (event) {
     event.preventDefault();
     let id = $(this).data("id");
     displayRestaurant(id);
   });
-
-  getRestaurants();
 
   let index = document.querySelector('.js-restaurant-index');
 
@@ -89,7 +89,8 @@ $(function() {
     }).then(response => response.json())
       .then(restaurant => {
         alert("Restaurant created!");
-        index.innerHTML += restaurantPreview(restaurant);
+        let newR = new RestaurantItem(restaurant);
+        index.innerHTML += newR.renderDetails();
 
         document.getElementById(`restaurant-${restaurant.id}`).scrollIntoView();
       });
@@ -101,28 +102,28 @@ $(function() {
       .then(restaurants => {
         restaurants.map(restaurant => {
           let newR = new RestaurantItem(restaurant);
-          index.innerHTML += newR.renderPreview();
+          index.innerHTML += newR.renderDetails();
         });
-        // $('.js-restaurant-detail').on('click', function () {
-        //   let id = $(this).data("id");
-        //   displayRestaurant(id);
-        // });
+        $('.js-restaurant-dishes').on('click', function () {
+          let id = $(this).data("id");
+          displayRestaurant(id);
+        });
       });
   }
 
-  // function displayRestaurant(id) {
-  //   let display = document.querySelector(`#restaurant-${id}`);
-  //   console.log(id);
+  function displayRestaurant(id) {
+    let display = document.querySelector(`#restaurant-${id}`);
+    console.log(id);
 
-  //   fetch(BASE_URL + "/restaurants/" + id + ".json")
-  //     .then(response => response.json())
-  //     .then(restaurant => {
-  //       console.log(restaurant);
-  //       console.log(display);
-  //       let newR = new RestaurantItem(restaurant);
-  //       display.innerHTML = newR.renderDetails();
-  //     })
-  // }
+    fetch(BASE_URL + "/restaurants/" + id + ".json")
+      .then(response => response.json())
+      .then(restaurant => {
+        console.log(restaurant);
+        console.log(display);
+        let newR = new RestaurantItem(restaurant);
+        display.innerHTML = newR.renderDetails();
+      })
+  }
 
   class RestaurantItem {
     constructor(restaurant) {
@@ -138,28 +139,18 @@ $(function() {
       this.created_by = restaurant.created_by;
     }
 
-    renderPreview() {
-      return `
-            <h2>${this.name}</h2>
-            <ul>
-            <li>${this.address}</li>
-            <li>${this.cuisine}</li>
-            </ul>
-            <input type="button" data-id="${this.id}" class="js-restaurant-detail" value="See Details">
-            <div id="restaurant-${this.id}">
-            </div>
-            <br>
-            <hr>
-            <br>
-            `
-    }
-
     renderDetails() {
       return `
-      <br>
-      <hr>
-      <br>
+      <h2>${this.name}</h2>
       <table>
+        <tr>
+            <td>Address:</td>
+            <td>${this.address}</td>
+        </tr>
+        <tr>
+            <td>Cuisine: </td>
+            <td>${this.cuisine}</td>
+        </tr>
         <tr>
             <td>Dress Code:</td>
             <td>${this.dress_code}</td>
@@ -182,7 +173,12 @@ $(function() {
         </tr>
       </table>
       <br>
+      <input type="button" data-id="${this.id}" class="js-restaurant-dishes" value="See Dishes">
+      <div id="restaurant-${this.id}">
+      </div>
+      <br>
       <hr>
+      <br>
       `
     }
   }
