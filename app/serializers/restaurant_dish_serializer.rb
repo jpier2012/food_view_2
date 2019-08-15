@@ -1,3 +1,3 @@
 class RestaurantDishSerializer < ActiveModel::Serializer
-  attributes :name, :price, :photo
+  attributes :name, :price
 end

@@ -28,10 +28,7 @@ class RestaurantsController < ApplicationController
     end
 
     def show
-        respond_to do |format|
-            format.html { render :show }
-            format.json { render json: @restaurant }
-        end
+        render json: @restaurant
     end
 
     def edit

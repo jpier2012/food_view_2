@@ -83,42 +83,59 @@ $(function() {
     }).then(response => response.json())
       .then(restaurant => {
         alert("Restaurant created!");
-        let newR = new RestaurantItem(restaurant);
-        index.innerHTML += newR.renderDetails();
+        index.innerHTML += `
+            <h2>${restaurant.name}</h2>
+            <h4>${restaurant.address}</h4>
+            <input type="button" data-id="${restaurant.id}" class="js-restaurant-details" value="See Details">
+            <br>
+            <div id="restaurant-${restaurant.id}">
+            </div>
+            <br>
+            <hr>
+            <br>
+          `
 
         document.getElementById(`restaurant-${restaurant.id}`).scrollIntoView();
       });
   }
 
   function getRestaurants() {
-    fetch(BASE_URL + "/restaurants/all.json")
+    fetch(BASE_URL + "/restaurants/all")
       .then(response => response.json())
       .then(restaurants => {
         restaurants.map(restaurant => {
-          let newR = new RestaurantItem(restaurant);
-          index.innerHTML += newR.renderDetails();
+          index.innerHTML += `
+            <h2>${restaurant.name}</h2>
+            <h4>${restaurant.address}</h4>
+            <input type="button" data-id="${restaurant.id}" class="js-restaurant-details" value="See Details">
+            <br>
+            <br>
+            <div id="restaurant-${restaurant.id}">
+            </div>
+            <br>
+            <hr>
+            <br>
+          `
         });
-        $('.js-restaurant-dishes').on('click', function () {
-          getDishes(this.dataset.id);
+        $('.js-restaurant-details').on('click', function () {
+          getDetails(this.dataset.id);
         });
     });
   }
- 
-  function getDishes(id) {
+
+  function getDetails(id) {
     let display = document.querySelector(`#restaurant-${id}`);
-    fetch(BASE_URL + "/restaurants/" + id + ".json")
+    fetch(BASE_URL + "/restaurants/" + id)
       .then(response => response.json())
       .then(restaurant => {
-        display.innerHTML += '<ul>'
-        console.log(restaurant);
-        restaurant.dishes.forEach(dish => {
-          console.log(dish);
-          display.innerHTML += `<li>${dish.name}: $${dish.price}</li>`
-        });
-        display.innerHTML += '</ul>'
+          let newR = new RestaurantItem(restaurant);
+          display.innerHTML = newR.renderDetails();
+          $('.js-restaurant-dishes').on('click', function () {
+            newR.renderDishes();
+          });
       });
   }
-
+ 
   class RestaurantItem {
     constructor(restaurant) {
       this.id = restaurant.id;
@@ -134,14 +151,41 @@ $(function() {
       this.dishes = restaurant.dishes;
     }
 
+    outdoorSeatingYes() {
+      if (this.outdoor_seating === true) {
+        return `<tr><td><strong><em style="color:darkblue">Outdoor Seating</em></strong></td></tr>`;
+      } else {
+        return "";
+      }
+    }
+
+    childFriendlyYes() {
+      if (this.child_friendly === true) {
+        return `<tr><td><strong><em style="color:darkblue">Child Friendly</em></strong></td></tr>`;
+      } else {
+        return "";
+      }
+    }
+
+    byobYes() {
+      if (this.byob === true) {
+        return `<tr><td><strong><em style="color:darkblue">BYOB</em></strong></td></tr>`;
+      } else {
+        return "";
+      }
+    }
+
+    openBarYes() {
+      if (this.open_bar === true) {
+        return `<tr><td><strong><em style="color:darkblue">Open Bar</em></strong></td></tr>`;
+      } else {
+        return "";
+      }
+    }
+
     renderDetails() {
       return `
-      <h2>${this.name}</h2>
       <table>
-        <tr>
-            <td>Address:</td>
-            <td>${this.address}</td>
-        </tr>
         <tr>
             <td>Cuisine: </td>
             <td>${this.cuisine}</td>
@@ -150,31 +194,25 @@ $(function() {
             <td>Dress Code:</td>
             <td>${this.dress_code}</td>
         </tr>
-        <tr>
-            <td>Outdoor Seating: </td>
-            <td>${this.outdoor_seating}</td>
-        </tr>
-        <tr>
-            <td>Child Friendly: </td>
-            <td>${this.child_friendly}</td>
-        </tr>
-        <tr>
-            <td>BYOB: </td>
-            <td>${this.byob}</td>
-        </tr>
-        <tr>
-            <td>Open Bar: </td>
-            <td>${this.open_bar}</td>
-        </tr>
+        ${this.outdoorSeatingYes()}
+        ${this.childFriendlyYes()}
+        ${this.byobYes()}
+        ${this.openBarYes()}
       </table>
       <br>
       <input type="button" data-id="${this.id}" class="js-restaurant-dishes" value="See Dishes">
-      <div id="restaurant-${this.id}">
+      <div id="restaurant-${this.id}-dishes">
       </div>
-      <br>
-      <hr>
-      <br>
       `
+    }
+
+    renderDishes() {
+      let display = document.querySelector(`#restaurant-${this.id}-dishes`);
+      display.innerHTML += '<ul>'
+      this.dishes.forEach(dish => {
+        display.innerHTML += `<li>${dish.name}: $${dish.price}</li>`
+      });
+      display.innerHTML += '</ul>'
     }
   }
 });

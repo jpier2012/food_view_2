@@ -19,8 +19,15 @@ french = Restaurant.create(name: "Jean's Croissants", address: "Paris, France", 
 a = user.dishes.create(name: "Cheeseburger", price: 10, restaurant: american)
 a.photo.attach(io: File.open('app/assets/images/red-robin-burger-gourmet-cheeseburger_large.jpg'), filename: 'red-robin-burger-gourmet-cheeseburger_large.jpg', content_type: 'image/jpg')
 
-b = user.dishes.create(name: "Kung Pao Chicken", price: 12, restaurant: chinese)
+user.dishes.create(name: "Quarter Pounder", price: 6.75, restaurant: american)
+user.dishes.create(name: "Big Mac", price: 10.08, restaurant: american)
+
+
+b = user.dishes.create(name: "Kung Pao Chicken", price: 12.15, restaurant: chinese)
 b.photo.attach(io: File.open('app/assets/images/kung-pao-chicken-thumb.jpg'), filename: 'kung-pao-chicken-thumb.jpg', content_type: 'image/jpg')
+
+user.dishes.create(name: "Sweet & Sour Pork", price: 8.00, restaurant: chinese)
+user.dishes.create(name: "Chop Suey", price: 5.41, restaurant: chinese)
 
 c = user.dishes.create(name: "Steak Tacos", price: 6.99, restaurant: mexican)
 c.photo.attach(io: File.open('app/assets/images/menu_small__Steak_Tacos_with_Chimichurri_THUMB.jpg'), filename: 'menu_small__Steak_Tacos_with_Chimichurri_THUMB.jpg', content_type: 'image/jpg')
