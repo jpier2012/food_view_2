@@ -7,12 +7,6 @@ $(function() {
 
   getRestaurants();
 
-  $('.js-restaurant-detail').on('click', function (event) {
-    event.preventDefault();
-    let id = $(this).data("id");
-    displayRestaurant(id);
-  });
-
   let index = document.querySelector('.js-restaurant-index');
 
   function displayCreateForm() {
@@ -105,24 +99,24 @@ $(function() {
           index.innerHTML += newR.renderDetails();
         });
         $('.js-restaurant-dishes').on('click', function () {
-          let id = $(this).data("id");
-          displayRestaurant(id);
+          getDishes(this.dataset.id);
         });
-      });
+    });
   }
-
-  function displayRestaurant(id) {
+ 
+  function getDishes(id) {
     let display = document.querySelector(`#restaurant-${id}`);
-    console.log(id);
-
     fetch(BASE_URL + "/restaurants/" + id + ".json")
       .then(response => response.json())
       .then(restaurant => {
+        display.innerHTML += '<ul>'
         console.log(restaurant);
-        console.log(display);
-        let newR = new RestaurantItem(restaurant);
-        display.innerHTML = newR.renderDetails();
-      })
+        restaurant.dishes.forEach(dish => {
+          console.log(dish);
+          display.innerHTML += `<li>${dish.name}: $${dish.price}</li>`
+        });
+        display.innerHTML += '</ul>'
+      });
   }
 
   class RestaurantItem {
@@ -137,6 +131,7 @@ $(function() {
       this.open_bar = restaurant.open_bar;
       this.byob = restaurant.byob;
       this.created_by = restaurant.created_by;
+      this.dishes = restaurant.dishes;
     }
 
     renderDetails() {
@@ -182,18 +177,4 @@ $(function() {
       `
     }
   }
-
-  // class DishItem {
-  //   constructor(dish) {
-  //     this.id = dish.id
-  //     this.name = dish.name
-  //     this.description = dish.description
-  //     this.taste = dish.taste
-  //     this.overall_value = dish.overall_value
-  //     this.dining_experience = dish.dining_experience
-  //     this.user_id = dish.user_id
-  //     this.restaurant_id = dish.restaurant_id
-  //   }
-  // }
-
 });
