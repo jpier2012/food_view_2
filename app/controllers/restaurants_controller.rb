@@ -1,14 +1,14 @@
 class RestaurantsController < ApplicationController
     include RestaurantsHelper
-    before_action :set_restaurant, only: [:show, :edit, :update, :destroy, :js_restaurant_demo_show]
+    before_action :set_restaurant, only: [:edit, :update, :destroy]
     before_action :restaurant_access_redirect, only: [:edit, :update, :destroy]
 
     def index
     end
 
     def all
-        @restaurants = Restaurant.all
-        render json: @restaurants
+        restaurants = Restaurant.all
+        render json: restaurants
     end
 
     def new
@@ -28,7 +28,8 @@ class RestaurantsController < ApplicationController
     end
 
     def show
-        render json: @restaurant
+        restaurant = Restaurant.find_by_id(params[:id])
+        render json: restaurant
     end
 
     def edit

@@ -201,18 +201,23 @@ $(function() {
       </table>
       <br>
       <input type="button" data-id="${this.id}" class="js-restaurant-dishes" value="See Dishes">
-      <div id="restaurant-${this.id}-dishes">
-      </div>
+      <br>
+      <br>
+      <table id="restaurant-${this.id}-dishes">
+      </table>
       `
     }
 
     renderDishes() {
       let display = document.querySelector(`#restaurant-${this.id}-dishes`);
-      display.innerHTML += '<ul>'
       this.dishes.forEach(dish => {
-        display.innerHTML += `<li>${dish.name}: $${dish.price}</li>`
+        display.innerHTML += `
+          <tr>
+            <td>${dish.name}:</td>
+            <td>$${dish.price}</td>
+          </tr>
+          `
       });
-      display.innerHTML += '</ul>'
     }
   }
 });
