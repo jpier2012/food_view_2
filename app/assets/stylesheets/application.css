@@ -20,6 +20,14 @@
     background-color: ivory;
   }
 
+  a input {
+    text-decoration: none;
+    padding: 0px;
+    font-style: none;
+    background-color: none;
+    color: black;
+  }
+
   input {
     background-color: wheat;
   }

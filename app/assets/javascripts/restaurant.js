@@ -33,7 +33,7 @@ $(function() {
           </tr>
         </table>
         <br>
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit" id="button">
       </form>
       <div class="js-new-restaurant">
       </div>
@@ -88,7 +88,7 @@ $(function() {
           index.innerHTML += `
             <h2>${restaurant.name}</h2>
             <h4>${restaurant.address}</h4>
-            <input type="button" data-id="${restaurant.id}" class="js-restaurant-details" value="See Details">
+            <input type="button" id="button" data-id="${restaurant.id}" class="js-restaurant-details" value="See Details">
             <br>
             <br>
             <div id="restaurant-${restaurant.id}">
@@ -114,6 +114,7 @@ $(function() {
           $('.js-restaurant-dishes').on('click', function () {
             newR.renderDishes();
           });
+
       });
   }
  
@@ -157,7 +158,10 @@ $(function() {
         ${this.yes("Open Bar", this.open_bar)}
       </table>
       <br>
-      <input type="button" data-id="${this.id}" class="js-restaurant-dishes" value="See Dishes">
+      <a href="/restaurants/${this.id}/edit" id="button">Edit Restaurant Details</a>
+      <br>
+      <br>
+      <input id="button" type="button" data-id="${this.id}" class="js-restaurant-dishes" value="See Dishes">
       <br>
       <br>
       <table id="restaurant-${this.id}-dishes">

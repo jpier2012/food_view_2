@@ -2,7 +2,7 @@
 
 # FoodView2
 
-Welcome to FoodView2! This include all the awesomeness of the original FoodView, but with asynchronous JS functions incuded!
+Welcome to FoodView2! This include all the awesomeness of the original FoodView, but with asynchronous JS functions incuded! The restaurant index and show pages have been converted into one all-encompassing Restaurants page.
 
 With this app you can take pictures of your food to post online for all the world to see! You'll be able to rate each dish you create and also see Dishes created by other people. You can also add your own restaurants, or use those created by others.
 

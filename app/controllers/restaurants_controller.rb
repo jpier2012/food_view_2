@@ -39,7 +39,7 @@ class RestaurantsController < ApplicationController
         @restaurant.update(restaurant_params)
 
         if @restaurant.valid?
-            redirect_to restaurant_path(@restaurant)
+            redirect_to restaurants_path
         else
             render :edit
         end
