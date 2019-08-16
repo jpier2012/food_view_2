@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
     end
 
     def all
-        restaurants = Restaurant.all
+        restaurants = Restaurant.all.order(:name)
         render json: restaurants
     end
 
