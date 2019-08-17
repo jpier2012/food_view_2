@@ -9,28 +9,23 @@ $(function() {
 
   let index = document.querySelector('.js-restaurant-index');
 
+  function formRow(label, id) {
+    return `<tr>
+              <td>${label}:</td>
+              <td><input type="text" id="${id}"></td>
+            </tr>`
+  }
+
   function displayCreateForm() {
     let form = document.querySelector('.js-restaurant-form');
     let html = `
       <br>
       <form id="restaurant-form">
         <table>
-          <tr>
-              <td>Name: </td>
-              <td><input type="text" id="name"></td>
-          </tr>
-          <tr>
-              <td>Address: </td>
-              <td><input type="text" id="address"></td>
-          </tr>
-          <tr>
-              <td>Cuisine: </td>
-              <td><input type="text" id="cuisine"></td>
-          </tr>
-          <tr>
-              <td>Dress Code: </td>
-              <td><input type="text" id="dress_code"></td>
-          </tr>
+          ${formRow("Name", "name")}
+          ${formRow("Address", "address")}
+          ${formRow("Cuisine", "cuisine")}
+          ${formRow("Dress Code", "dress_code")}
         </table>
         <br>
         <input type="submit" value="Submit" id="button">
@@ -133,9 +128,18 @@ $(function() {
       this.dishes = restaurant.dishes;
     }
 
-    yes(label, attribute) {
+    static tr(label, attribute) {
+        return `<tr>
+                  <td>${label}:</td>
+                  <td>${attribute}</td>
+                </tr>`;
+    }
+
+    static boolYes(label, attribute) {
       if (attribute === true) {
-        return `<tr><td><strong><em style="color:darkblue">${label}</em></strong></td></tr>`;
+        return `<tr>
+                  <td><strong><em style="color:darkblue">${label}</em></strong></td>
+                </tr>`;
       } else {
         return "";
       }
@@ -144,18 +148,12 @@ $(function() {
     renderDetails() {
       return `
       <table>
-        <tr>
-            <td>Cuisine: </td>
-            <td>${this.cuisine}</td>
-        </tr>
-        <tr>
-            <td>Dress Code:</td>
-            <td>${this.dress_code}</td>
-        </tr>
-        ${this.yes("Outdoor Seating", this.outdoor_seating)}
-        ${this.yes("Child Friendly", this.child_friendly)}
-        ${this.yes("BYOB", this.byob)}
-        ${this.yes("Open Bar", this.open_bar)}
+        ${this.constructor.tr("Cuisine", this.cuisine)}
+        ${this.constructor.tr("Dress Code", this.dress_code)}
+        ${this.constructor.boolYes("Outdoor Seating", this.outdoor_seating)}
+        ${this.constructor.boolYes("Child Friendly", this.child_friendly)}
+        ${this.constructor.boolYes("BYOB", this.byob)}
+        ${this.constructor.boolYes("Open Bar", this.open_bar)}
       </table>
       <br>
       <a href="/restaurants/${this.id}/edit" id="button">Edit Restaurant Details</a>
@@ -175,12 +173,7 @@ $(function() {
 
       if (this.dishes.length != 0) {
         this.dishes.forEach(dish => {
-          display.innerHTML += `
-            <tr>
-              <td>${dish.name}:</td>
-              <td>$${dish.price}</td>
-            </tr>
-            `
+          display.innerHTML += `${this.constructor.tr(dish.name, `$${dish.price}`)}`
         });
       } else {
         display.innerHTML = "<em>No dishes have been created for this restaurant.</em>"
