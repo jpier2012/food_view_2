@@ -9,15 +9,16 @@ $(function() {
 
   let index = document.querySelector('.js-restaurant-index');
 
-  function formRow(label, id) {
-    return `<tr>
-              <td>${label}:</td>
-              <td><input type="text" id="${id}"></td>
-            </tr>`
-  }
-
   function displayCreateForm() {
     let form = document.querySelector('.js-restaurant-form');
+    
+    function formRow(label, id) {
+      return `<tr>
+                <td>${label}:</td>
+                <td><input type="text" id="${id}"></td>
+              </tr>`
+    }
+
     let html = `
       <br>
       <form id="restaurant-form">
