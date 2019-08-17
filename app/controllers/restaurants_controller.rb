@@ -11,10 +11,6 @@ class RestaurantsController < ApplicationController
         render json: restaurants
     end
 
-    def new
-        @restaurant = Restaurant.new
-    end
-
     def create
         @restaurant = Restaurant.new(restaurant_params)
         @restaurant.created_by = current_user.id

@@ -171,6 +171,7 @@ $(function() {
 
     renderDishes() {
       let display = document.querySelector(`#restaurant-${this.id}-dishes`);
+      display.innerHTML = '';
 
       if (this.dishes.length != 0) {
         this.dishes.forEach(dish => {
@@ -182,7 +183,7 @@ $(function() {
             `
         });
       } else {
-        display.innerHTML += "<em>No dishes have been created for this restaurant.</em>"
+        display.innerHTML = "<em>No dishes have been created for this restaurant.</em>"
       }
     }
   }
