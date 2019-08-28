@@ -29,4 +29,8 @@
         <td>Eaten: </td>
         <td><%= dish.created_at.strftime("%b %e, %Y") %></td>
     </tr>
+    <tr>
+        <td>By: </td>
+        <td><%= dish.user.email %></td>
+    </tr>
 </table>
