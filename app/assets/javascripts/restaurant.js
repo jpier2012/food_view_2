@@ -9,18 +9,15 @@ $(function() {
 
   let index = $('.js-restaurant-index')[0];
 
-  $('.js-filter-created-by-user').on('click', function (event) {
-    console.log("created by user")
-    getRestaurants();
+  $('.js-filter-created-by-user').on('click', function () {
+    getRestaurants("createdByUser");
   });
 
-  $('.js-filter-places-eaten').on('click', function (event) {
-    console.log("places eaten")
-    getRestaurants();
+  $('.js-filter-places-eaten').on('click', function () {
+    getRestaurants("placesEaten");
   });
 
-  $('.js-filter-all').on('click', function (event) {
-    console.log("all")
+  $('.js-filter-all').on('click', function () {
     getRestaurants();
   });
 
@@ -95,15 +92,25 @@ $(function() {
       .then(response => response.json())
       .then(restaurants => {
         let restaurantArr = [];
-        let userId = $('#current-user')[0].value
+        let userId = parseInt($('#current-user')[0].value, 10);
         index.innerHTML = '';
 
         if (userFilter === "createdByUser") {
           restaurantArr = restaurants.filter(restaurant => {
-            return restaurant.created_by_id === parseInt(userId, 10);
+            return restaurant.created_by_id === userId;
+          })
+        } else if (userFilter === "placesEaten") {
+          restaurantArr = restaurants.filter(restaurant => {
+            let dishArr = [];
+            
+            dishArr = restaurant.dishes.filter(dish => {
+              return dish.user_id === userId;
+            })
+            
+            return dishArr.length != 0 ? true : false;
           })
         } else {
-          restaurantArr = restaurants; 
+          restaurantArr = restaurants;
         };
 
         restaurantArr.map(restaurant => {
