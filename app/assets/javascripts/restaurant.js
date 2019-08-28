@@ -88,7 +88,7 @@ $(function() {
   }
 
   function getRestaurants(userFilter) {
-    fetch(BASE_URL + "/restaurants/all")
+    fetch(BASE_URL + "/restaurants.json")
       .then(response => response.json())
       .then(restaurants => {
         let restaurantArr = [];
@@ -101,6 +101,7 @@ $(function() {
           })
           $('h1')[0].innerHTML = "Restaurants You've Created"
         } else if (userFilter === "placesEaten") {
+          // pull in the user object via fetch, serialize the dishes, display dishes via user.dishes
           restaurantArr = restaurants.filter(restaurant => {
             let dishArr = [];
             
