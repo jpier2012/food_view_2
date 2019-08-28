@@ -7,10 +7,10 @@ $(function() {
 
   getRestaurants();
 
-  let index = document.querySelector('.js-restaurant-index');
+  let index = $('.js-restaurant-index')[0];
 
   function displayCreateForm() {
-    let form = document.querySelector('.js-restaurant-form');
+    let form = $('.js-restaurant-form')[0];
     
     function formRow(label, id) {
       return `<tr>
@@ -36,7 +36,7 @@ $(function() {
     `
     form.innerHTML = html;
 
-    document.getElementById('restaurant-form').addEventListener('submit', function (event) {
+    $('#restaurant-form').on('submit', function (event) {
       event.preventDefault();
       createRestaurant();
     })
@@ -44,10 +44,10 @@ $(function() {
 
   function createRestaurant() {
     const restaurant = {
-      name: document.getElementById('name').value,
-      address: document.getElementById('address').value,
-      cuisine: document.getElementById('cuisine').value,
-      dress_code: document.getElementById('dress_code').value
+      name: $('#name')[0].value,
+      address: $('#address')[0].value,
+      cuisine: $('#cuisine')[0].value,
+      dress_code: $('#dress_code')[0].value
     }
 
     fetch(BASE_URL + "/restaurants", {
@@ -56,13 +56,13 @@ $(function() {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content
+        'X-CSRF-Token': $("[name='csrf-token']")[0].content
       }
     }).then(response => response.json())
       .then(restaurant => {
         alert("Restaurant created!");
         let newR = new RestaurantItem(restaurant);
-        let display = document.querySelector('.js-new-restaurant');
+        let display = $('.js-new-restaurant');
         display.innerHTML += `
           <ul>
             <li>Name: ${restaurant.name}</li>
@@ -101,7 +101,7 @@ $(function() {
   }
 
   function getDetails(id) {
-    let display = document.querySelector(`#restaurant-${id}`);
+    let display = $(`#restaurant-${id}`)[0];
     fetch(BASE_URL + "/restaurants/" + id)
       .then(response => response.json())
       .then(restaurant => {
@@ -169,7 +169,7 @@ $(function() {
     }
 
     renderDishes() {
-      let display = document.querySelector(`#restaurant-${this.id}-dishes`);
+      let display = $(`#restaurant-${this.id}-dishes`)[0];
       display.innerHTML = '';
 
       if (this.dishes.length != 0) {
