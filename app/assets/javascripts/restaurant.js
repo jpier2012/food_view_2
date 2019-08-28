@@ -5,13 +5,13 @@ $(function() {
     displayCreateForm();
   });
 
-  $('.js-filter').on('click', function (event) {
-    console.log("here");
-  });
-
   getRestaurants();
 
   let index = $('.js-restaurant-index')[0];
+
+  $('.js-filter').on('click', function (event) {
+    getRestaurants(true);
+  });
 
   function displayCreateForm() {
     let form = $('.js-restaurant-form')[0];
@@ -75,16 +75,28 @@ $(function() {
             <li>Dress Code: ${restaurant.dress_code}</li>
           </ul>
           `
-          index.innerHTML = '';
           getRestaurants();
       });
   }
 
-  function getRestaurants() {
+  function getRestaurants(userFilter) {
     fetch(BASE_URL + "/restaurants/all")
       .then(response => response.json())
       .then(restaurants => {
-        restaurants.map(restaurant => {
+        let restaurantArr = [];
+        let userId = $('#current-user')[0].value
+        index.innerHTML = '';
+
+        if (userFilter) {
+          restaurantArr = restaurants.filter(restaurant => {
+            console.log(restaurant)
+            return restaurant.created_by_id === parseInt(userId, 10);
+          })
+        } else {
+          restaurantArr = restaurants; 
+        };
+
+        restaurantArr.map(restaurant => {
           index.innerHTML += `
             <h2>${restaurant.name}</h2>
             <h4>${restaurant.address}</h4>
