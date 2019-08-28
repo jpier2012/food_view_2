@@ -20,6 +20,7 @@
   <footer>
   <% if user_signed_in? %>
     <h4><%= "Current User: #{current_user.email}" %></h4>
+    <%= hidden_field_tag "current-user", "#{current_user.id}" %>
   <% else %>
     <h2>Log in to View Food</h2>
   <% end %>
