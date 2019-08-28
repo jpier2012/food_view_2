@@ -4,11 +4,11 @@ class RestaurantsController < ApplicationController
     before_action :restaurant_access_redirect, only: [:edit, :update, :destroy]
 
     def index
-    end
-
-    def all
         restaurants = Restaurant.all.order(:name)
-        render json: restaurants
+        respond_to do |format|
+            format.html { render :index }
+            format.json { render json: restaurants }
+        end
     end
 
     def create

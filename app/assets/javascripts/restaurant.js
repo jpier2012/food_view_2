@@ -87,6 +87,12 @@ $(function() {
       });
   }
 
+  // used to pull in an array of unique restaurants attached to the user object
+  function onlyUnique(value, index, self) { 
+    console.log(self, index, value)
+    return self.indexOf(value) === index;
+  }
+
   function getRestaurants(userFilter) {
     fetch(BASE_URL + "/restaurants.json")
       .then(response => response.json())
@@ -99,41 +105,41 @@ $(function() {
           restaurantArr = restaurants.filter(restaurant => {
             return restaurant.created_by_id === userId;
           })
+          mapRestaurants(restaurantArr);
           $('h1')[0].innerHTML = "Restaurants You've Created"
+
         } else if (userFilter === "placesEaten") {
-          // pull in the user object via fetch, serialize the dishes, display dishes via user.dishes
-          restaurantArr = restaurants.filter(restaurant => {
-            let dishArr = [];
-            
-            dishArr = restaurant.dishes.filter(dish => {
-              return dish.user_id === userId;
-            })
-            
-            return dishArr.length != 0 ? true : false;
+          fetch(BASE_URL + "/users/" + userId + ".json")
+          .then(response => response.json())
+          .then(user => {
+            mapRestaurants(user.restaurants.filter(onlyUnique));
           })
           $('h1')[0].innerHTML = "Places You've Eaten"
+
         } else {
-          restaurantArr = restaurants;
+          mapRestaurants(restaurants);
           $('h1')[0].innerHTML = "All Restaurants"
         };
+    });
+  }
 
-        restaurantArr.map(restaurant => {
-          index.innerHTML += `
-            <h2>${restaurant.name}</h2>
-            <h4>${restaurant.address}</h4>
-            <input type="button" id="button" data-id="${restaurant.id}" class="js-restaurant-details" value="See Details">
-            <br>
-            <br>
-            <div id="restaurant-${restaurant.id}">
-            </div>
-            <br>
-            <hr>
-            <br>
-          `
-        });
-        $('.js-restaurant-details').on('click', function () {
-          getDetails(this.dataset.id);
-        });
+  function mapRestaurants(restaurants) {
+    restaurants.map(restaurant => {
+      index.innerHTML += `
+        <h2>${restaurant.name}</h2>
+        <h4>${restaurant.address}</h4>
+        <input type="button" id="button" data-id="${restaurant.id}" class="js-restaurant-details" value="See Details">
+        <br>
+        <br>
+        <div id="restaurant-${restaurant.id}">
+        </div>
+        <br>
+        <hr>
+        <br>
+      `
+    });
+    $('.js-restaurant-details').on('click', function () {
+      getDetails(this.dataset.id);
     });
   }
 
