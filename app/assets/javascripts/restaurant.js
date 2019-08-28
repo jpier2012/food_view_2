@@ -99,6 +99,7 @@ $(function() {
           restaurantArr = restaurants.filter(restaurant => {
             return restaurant.created_by_id === userId;
           })
+          $('h1')[0].innerHTML = "Restaurants You've Created"
         } else if (userFilter === "placesEaten") {
           restaurantArr = restaurants.filter(restaurant => {
             let dishArr = [];
@@ -109,8 +110,10 @@ $(function() {
             
             return dishArr.length != 0 ? true : false;
           })
+          $('h1')[0].innerHTML = "Places You've Eaten"
         } else {
           restaurantArr = restaurants;
+          $('h1')[0].innerHTML = "All Restaurants"
         };
 
         restaurantArr.map(restaurant => {
