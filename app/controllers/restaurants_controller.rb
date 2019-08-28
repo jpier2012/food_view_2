@@ -13,7 +13,8 @@ class RestaurantsController < ApplicationController
 
     def create
         @restaurant = Restaurant.new(restaurant_params)
-        @restaurant.created_by = current_user.id
+        @restaurant.created_by_id = current_user.id
+        @restaurant.created_by_email = current_user.email
 
         if @restaurant.valid?
             @restaurant.save

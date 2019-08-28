@@ -9,12 +9,12 @@
 user = User.create(email: "test@test.com", password: "password", password_confirmation: "password")
 user2 = User.create(email: "test2@test.com", password: "password", password_confirmation: "password")
 
-american = Restaurant.create(name: "McDonald's", address: "Chicago, IL", dress_code: "Formal", cuisine: "American", outdoor_seating: true, child_friendly: true, created_by: user.id)
-chinese = Restaurant.create(name: "Yen Yen", address: "Buffalo Grove, IL", dress_code: "Casual", cuisine: "Chinese", open_bar: true, byob: true, child_friendly: true, created_by: user.id)
-thai = Restaurant.create(name: "Thai Frenzy", address: "All over the place", dress_code: "Casual", cuisine: "Thai", byob: true, outdoor_seating: true, created_by: user.id)
-mexican = Restaurant.create(name: "Martin's Tacos", address: "Hanover, IL", dress_code: "No Shorts", cuisine: "Mexican", outdoor_seating: true, child_friendly: true, created_by: user2.id)
-bbq = Restaurant.create(name: "Billy's BBQ", address: "Buffalo, NY", dress_code: "No Ridiculous Hats", cuisine: "BBQ", open_bar: true, created_by: user2.id)
-french = Restaurant.create(name: "Jean's Croissants", address: "Paris, France", dress_code: "Suits Only", cuisine: "French", open_bar: true, byob: true, created_by: user2.id)
+american = Restaurant.create(name: "McDonald's", address: "Chicago, IL", dress_code: "Formal", cuisine: "American", outdoor_seating: true, child_friendly: true, created_by_id: user.id, created_by_email: user.email)
+chinese = Restaurant.create(name: "Yen Yen", address: "Buffalo Grove, IL", dress_code: "Casual", cuisine: "Chinese", open_bar: true, byob: true, child_friendly: true, created_by_id: user.id, created_by_email: user.email)
+thai = Restaurant.create(name: "Thai Frenzy", address: "All over the place", dress_code: "Casual", cuisine: "Thai", byob: true, outdoor_seating: true, created_by_id: user.id, created_by_email: user.email)
+mexican = Restaurant.create(name: "Martin's Tacos", address: "Hanover, IL", dress_code: "No Shorts", cuisine: "Mexican", outdoor_seating: true, child_friendly: true, created_by_id: user2.id, created_by_email: user2.email)
+bbq = Restaurant.create(name: "Billy's BBQ", address: "Buffalo, NY", dress_code: "No Ridiculous Hats", cuisine: "BBQ", open_bar: true, created_by_id: user2.id, created_by_email: user2.email)
+french = Restaurant.create(name: "Jean's Croissants", address: "Paris, France", dress_code: "Suits Only", cuisine: "French", open_bar: true, byob: true, created_by_id: user2.id, created_by_email: user2.email)
 
 a = user.dishes.create(name: "Cheeseburger", price: 10, restaurant: american)
 a.photo.attach(io: File.open('app/assets/images/red-robin-burger-gourmet-cheeseburger_large.jpg'), filename: 'red-robin-burger-gourmet-cheeseburger_large.jpg', content_type: 'image/jpg')

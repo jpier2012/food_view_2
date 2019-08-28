@@ -34,7 +34,8 @@ class DishesController < ApplicationController
             @dish.user = current_user
         else
             @dish = current_user.dishes.build(dish_params)
-            @dish.restaurant.created_by = current_user.id
+            @dish.restaurant.created_by_id = current_user.id
+            @dish.restaurant.created_by_email = current_user.email
         end
 
         if @dish.valid?

@@ -125,7 +125,8 @@ $(function() {
       this.child_friendly = restaurant.child_friendly;
       this.open_bar = restaurant.open_bar;
       this.byob = restaurant.byob;
-      this.created_by = restaurant.created_by;
+      this.created_by_id = restaurant.created_by_id;
+      this.created_by_email = restaurant.created_by_email;
       this.dishes = restaurant.dishes;
     }
 
@@ -151,6 +152,7 @@ $(function() {
       <table>
         ${this.constructor.tr("Cuisine", this.cuisine)}
         ${this.constructor.tr("Dress Code", this.dress_code)}
+        ${this.constructor.tr("Created By", this.created_by_email)}
         ${this.constructor.boolYes("Outdoor Seating", this.outdoor_seating)}
         ${this.constructor.boolYes("Child Friendly", this.child_friendly)}
         ${this.constructor.boolYes("BYOB", this.byob)}
