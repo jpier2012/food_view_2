@@ -5,6 +5,10 @@ $(function() {
     displayCreateForm();
   });
 
+  $('.js-filter').on('click', function (event) {
+    console.log("here");
+  });
+
   getRestaurants();
 
   let index = $('.js-restaurant-index')[0];
