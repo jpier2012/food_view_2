@@ -9,8 +9,19 @@ $(function() {
 
   let index = $('.js-restaurant-index')[0];
 
-  $('.js-filter').on('click', function (event) {
-    getRestaurants(true);
+  $('.js-filter-created-by-user').on('click', function (event) {
+    console.log("created by user")
+    getRestaurants();
+  });
+
+  $('.js-filter-places-eaten').on('click', function (event) {
+    console.log("places eaten")
+    getRestaurants();
+  });
+
+  $('.js-filter-all').on('click', function (event) {
+    console.log("all")
+    getRestaurants();
   });
 
   function displayCreateForm() {
@@ -87,9 +98,8 @@ $(function() {
         let userId = $('#current-user')[0].value
         index.innerHTML = '';
 
-        if (userFilter) {
+        if (userFilter === "createdByUser") {
           restaurantArr = restaurants.filter(restaurant => {
-            console.log(restaurant)
             return restaurant.created_by_id === parseInt(userId, 10);
           })
         } else {
