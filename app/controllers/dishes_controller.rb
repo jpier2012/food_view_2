@@ -82,6 +82,7 @@ class DishesController < ApplicationController
                 :photo,
                 restaurant_attributes: [
                     :name,
+                    :address,
                     :description,
                     :cuisine,
                     :dress_code,
