@@ -215,7 +215,7 @@ $(function() {
 
       if (this.dishes.length != 0) {
         this.dishes.forEach(dish => {
-          display.innerHTML += `${this.constructor.tr(dish.name, `$${dish.price}`)}`
+          display.innerHTML += `${this.constructor.tr(dish.name, `$${dish.price.toFixed(2)}`)}`
         });
       } else {
         display.innerHTML = "<em>No dishes have been created for this restaurant.</em>"
