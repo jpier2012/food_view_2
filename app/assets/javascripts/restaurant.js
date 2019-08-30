@@ -75,7 +75,7 @@ $(function() {
         alert("Restaurant created!");
         let newR = new RestaurantItem(restaurant);
         let display = $('.js-new-restaurant');
-        display.innerHTML += `
+        display.innerHTML = `
           <ul>
             <li>Name: ${restaurant.name}</li>
             <li>Address: ${restaurant.address}</li>
@@ -85,12 +85,6 @@ $(function() {
           `
           getRestaurants();
       });
-  }
-
-  // used to pull in an array of unique restaurants attached to the user object
-  function onlyUnique(value, index, self) { 
-    console.log(self, index, value)
-    return self.indexOf(value) === index;
   }
 
   function getRestaurants(userFilter) {
@@ -112,7 +106,9 @@ $(function() {
           fetch(BASE_URL + "/users/" + userId + ".json")
           .then(response => response.json())
           .then(user => {
-            mapRestaurants(user.restaurants.filter(onlyUnique));
+            // the simplest method of obtaining an array of unique restaurants associated to a user,
+            // in this context, is through the .uniq method in Ruby. I enabled this on thes User model via the unique_restaurants method.  
+            mapRestaurants(user.unique_restaurants);
           })
           $('h1')[0].innerHTML = "Places You've Eaten"
 

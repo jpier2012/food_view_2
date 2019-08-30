@@ -16,4 +16,8 @@ class User < ApplicationRecord
 
   has_many :dishes
   has_many :restaurants, through: :dishes
+
+  def unique_restaurants
+    self.restaurants.uniq
+  end
 end
