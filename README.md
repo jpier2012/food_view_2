@@ -56,15 +56,10 @@ Then visit localhost:3000 to get started!
 
 After signing up, add dishes to existing restaurants or create a new restaurant listing. From there you can check out dishes that you've created and the restaurants associated to them, or check out the indexes of all dishes and restaurants created by all users.
 
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-
-## Contributing
+# Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jpier2012/food_view_2. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-## Code of Conduct
+# Code of Conduct
 
 Everyone interacting in the MisterFitness project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/'jpier2012'/food_view_2/blob/master/CODE_OF_CONDUCT.md).
