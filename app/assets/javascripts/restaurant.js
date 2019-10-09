@@ -1,5 +1,5 @@
 $(function() { 
-  const BASE_URL = "http://localhost:3000"
+  const BASE_URL = "https://viewfood.herokuapp.com"
 
   $('.js-display-create-form').on('click', function (event) {
     displayCreateForm();
