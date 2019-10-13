@@ -9,11 +9,3 @@
     <%= link_to "Sign up", new_registration_path(resource_name), html_options = { id: "button"} %>
   <% end %>
 </p>
-
-<p>
-  <%- if devise_mapping.omniauthable? %>
-    <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", user_github_omniauth_authorize_path, html_options = { id: "button"} %>
-    <% end %>
-  <% end %>
-</p>
