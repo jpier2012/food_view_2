@@ -18,7 +18,7 @@
   <li><%= link_to "#{user.email}", user_path(user), html_options = { id: "index-link"} %></li>
   <ul>
     <li>Created Dishes: <%= user.dishes.count %></li>
-    <li>Created Restaurants: <%= user.restaurants.uniq.count %></li>
+    <li>Places Eaten: <%= user.restaurants.uniq.count %></li>
   </ul>
   <br>
 <% end %>
